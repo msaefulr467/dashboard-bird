@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BirdShop</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Memuat dashboard...</p>
+        </div>
+    </div>
+    
+    <div class="dashboard-container" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>BirdShop</h2>
+                <p>Admin Dashboard</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#"><i class="fas fa-bird"></i> Kelola Burung</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-chart-line"></i> Statistik</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-cog"></i> Pengaturan</a>
+                    </li>
+                    <li>
+                        <a href="../landing-page/index.html" target="_blank"><i class="fas fa-eye"></i> Lihat Toko</a>
+                    </li>
+                    <li>
+                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>&copy; 2023 BirdShop</p>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-title">
+                    <h1>Kelola Burung</h1>
+                    <p>Tambah, edit, dan hapus data burung</p>
+                </div>
+                <div class="header-actions">
+                    <div class="user-info">
+                        <span id="admin-email">admin@example.com</span>
+                    </div>
+                    <button id="add-bird-btn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Tambah Burung
+                    </button>
+                </div>
+            </header>
+            
+            <section class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-bird"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Burung</h3>
+                        <p id="total-birds">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Kategori</h3>
+                        <p>4</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Pengunjung</h3>
+                        <p>120</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="birds-table-section">
+                <div class="table-header">
+                    <h2>Daftar Burung</h2>
+                    <div class="table-actions">
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Cari burung...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select id="category-filter">
+                                <option value="all">Semua Kategori</option>
+                                <option value="lovebird">Lovebird</option>
+                                <option value="kenari">Kenari</option>
+                                <option value="murai">Murai</option>
+                                <option value="other">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="birds-table-container">
+                    <table class="birds-table">
+                        <thead>
+                            <tr>
+                                <th>Gambar</th>
+                                <th>Nama Burung</th>
+                                <th>Kategori</th>
+                                <th>Harga</th>
+                                <th>Nomor WA</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="birds-table-body">
+                            <!-- Birds data will be loaded here -->
+                            <tr class="loading-row">
+                                <td colspan="6">
+                                    <div class="loading">
+                                        <div class="spinner"></div>
+                                        <p>Memuat data burung...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Add/Edit Bird Modal -->
+    <div id="bird-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Tambah Burung Baru</h2>
+            
+            <form id="bird-form">
+                <input type="hidden" id="bird-id">
+                
+                <div class="form-group">
+                    <label for="bird-name">Nama Burung</label>
+                    <input type="text" id="bird-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bird-category">Kategori</label>
+                    <select id="bird-category" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="lovebird">Lovebird</option>
+                        <option value="kenari">Kenari</option>
+                        <option value="murai">Murai</option>
+                        <option value="other">Lainnya</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bird-price">Harga (Rp)</label>
+                    <input type="number" id="bird-price" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bird-description">Deskripsi</label>
+                    <textarea id="bird-description" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bird-whatsapp">Nomor WhatsApp (format: 628xxxxxxxxxx)</label>
+                    <input type="text" id="bird-whatsapp" pattern="^62\d{9,12}$" required>
+                    <small>Contoh: 6281234567890 (tanpa tanda + atau spasi)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bird-image">Gambar Burung</label>
+                    <div class="image-upload-container">
+                        <div class="image-preview" id="image-preview">
+                            <img id="preview-img" src="/placeholder.svg" alt="Preview" style="display: none;">
+                            <div class="upload-placeholder" id="upload-placeholder">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Klik atau seret gambar ke sini</p>
+                            </div>
+                        </div>
+                        <input type="file" id="bird-image" accept="image/*" required>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancel-btn" class="btn btn-secondary">Batal</button>
+                    <button type="submit" id="save-btn" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content delete-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Konfirmasi Hapus</h2>
+            <p>Apakah Anda yakin ingin menghapus burung <span id="delete-bird-name"></span>?</p>
+            <p class="delete-warning">Tindakan ini tidak dapat dibatalkan.</p>
+            <div class="form-actions">
+                <button type="button" id="cancel-delete-btn" class="btn btn-secondary">Batal</button>
+                <button type="button" id="confirm-delete-btn" class="btn btn-danger">Hapus</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main JavaScript with type="module" -->
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

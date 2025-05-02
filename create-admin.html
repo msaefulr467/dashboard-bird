@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Admin Account - BirdShop</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .create-admin-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        .create-admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .create-admin-header h1 {
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .create-admin-header p {
+            color: #7f8c8d;
+        }
+        
+        .create-admin-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .create-admin-form .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .create-admin-form .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .create-admin-form .form-group input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .create-admin-form .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+        }
+        
+        .error-message {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .create-admin-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .create-admin-footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .create-admin-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="create-admin-container">
+        <div class="create-admin-header">
+            <h1>BirdShop</h1>
+            <p>Buat Akun Admin</p>
+        </div>
+        
+        <div id="error-message" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> <span id="error-text"></span>
+        </div>
+        
+        <div id="success-message" class="success-message">
+            <i class="fas fa-check-circle"></i> <span id="success-text"></span>
+        </div>
+        
+        <form id="create-admin-form" class="create-admin-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Masukkan email admin" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Masukkan password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">Konfirmasi Password</label>
+                <input type="password" id="confirm-password" placeholder="Konfirmasi password" required>
+            </div>
+            
+            <button type="submit" id="create-admin-btn" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Buat Akun Admin
+            </button>
+        </form>
+        
+        <div class="create-admin-footer">
+            <p>Sudah punya akun? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+    
+    <!-- Import Firebase modules -->
+    <script type="module" src="create-admin.js"></script>
+</body>
+</html>
